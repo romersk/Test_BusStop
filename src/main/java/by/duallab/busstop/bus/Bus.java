@@ -44,7 +44,7 @@ public class Bus implements Comparable<Bus>{
 		this.endTime = hourTwo * 60 + minutesTwo;
 	}
 
-	public boolean isSpecificObj(Bus obj)
+	public boolean isSpecificObj(Bus obj) //New Object is Specific
 	{
 		boolean result = false;
 		
@@ -63,7 +63,7 @@ public class Bus implements Comparable<Bus>{
 		return result;
 	}
 	
-	public boolean isSpecificBus(Bus obj)
+	public boolean isSpecificBus(Bus obj) //Old Object is Specific
 	{
 		boolean result = false;
 		

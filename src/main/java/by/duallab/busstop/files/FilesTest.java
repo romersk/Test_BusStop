@@ -31,7 +31,7 @@ public class FilesTest {
 		FileWriter writer = new FileWriter(output.getAbsolutePath());
 		for (Bus obj : list) {
 
-			if (obj.getNameService().compareTo("Posh")==0)
+			if (obj.getNameService().compareTo("Posh")==0) // Output Posh
 			{
 				writer.write(obj.getNameService() + " " + obj.getStartTime() + " " +
 						obj.getEndTime() + " " + System.getProperty("line.separator"));
@@ -42,7 +42,7 @@ public class FilesTest {
 		
 		for (Bus obj : list) {
 
-			if (obj.getNameService().compareTo("Grotty")==0)
+			if (obj.getNameService().compareTo("Grotty")==0) // Output Gotty
 			{
 				writer.write(obj.getNameService() + " " + obj.getStartTime() + " " +
 						obj.getEndTime() + " " + System.getProperty("line.separator"));
@@ -69,7 +69,7 @@ public class FilesTest {
 					int index = 0;
 					for (Bus obj : list) {
 						if (obj.isSpecificObj(serviceBus)) {
-							list.set(index, serviceBus);
+							list.set(index, serviceBus); //Replacing a new specific object
 							toAdd = false;
 						} else if (obj.isSpecificBus(serviceBus))
 						{
@@ -79,7 +79,7 @@ public class FilesTest {
 					}
 
 					if (toAdd)
-						list.add(serviceBus);
+						list.add(serviceBus); // object is itself specific
 				}
 
 			}

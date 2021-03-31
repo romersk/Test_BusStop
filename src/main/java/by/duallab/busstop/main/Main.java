@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 
 		String directory;
-		directory = checkDir();
+		directory = checkDir(); //Enter Directory
 
 		FilesTest taskFiles = new FilesTest(directory);
 
@@ -30,8 +30,8 @@ public class Main {
 
 			directory = scanString.nextLine();
 
-			Path file = Paths.get(directory);
-			boolean isExist = Files.exists(file);
+			Path file = Paths.get(directory); 
+			boolean isExist = Files.exists(file); //is Path real?
 
 			if (isExist) {
 				break;
