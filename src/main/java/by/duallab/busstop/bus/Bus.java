@@ -1,12 +1,12 @@
 package by.duallab.busstop.bus;
 
-public class Bus implements Comparable<Bus>{
+import java.time.LocalTime;
+
+public class Bus{
 
 	private String nameService;
-	private int startTime;
-	private int endTime;
-	private String startTime_s;
-	private String endTime_s;
+	private LocalTime startTime;
+	private LocalTime endTime;
 
 	public String getNameService()
 	{
@@ -15,12 +15,22 @@ public class Bus implements Comparable<Bus>{
 	
 	public String getStartTime()
 	{
-		return this.startTime_s;
+		return this.startTime.toString();
 	}
 	
 	public String getEndTime()
 	{	
-		return this.endTime_s;
+		return this.endTime.toString();
+	}
+	
+	public LocalTime getStart()
+	{
+		return this.startTime;
+	}
+	
+	public LocalTime getEnd()
+	{
+		return this.endTime;
 	}
 	
 	public void parseStringToObject(String data) {
@@ -28,65 +38,23 @@ public class Bus implements Comparable<Bus>{
 
 		this.nameService = words[0];
 		
-		this.startTime_s = words[1];
-		this.endTime_s = words[2];
-		
-		String[] numberOne = words[1].split(":");
-		String[] numberTwo = words[2].split(":");
-
-		int hourOne = Integer.parseInt(numberOne[0]);
-		int minutesOne = Integer.parseInt(numberOne[1]);
-
-		int hourTwo = Integer.parseInt(numberTwo[0]);
-		int minutesTwo = Integer.parseInt(numberTwo[1]);
-
-		this.startTime = hourOne * 60 + minutesOne;
-		this.endTime = hourTwo * 60 + minutesTwo;
+		this.startTime = LocalTime.parse(words[1]);
+		this.endTime = LocalTime.parse(words[2]);
 	}
 
-	public boolean isSpecificObj(Bus obj) //New Object is Specific
+	public boolean SpecificObj(Bus obj) //Object is Specific
 	{
-		boolean result = false;
-		
-		if (obj.startTime == this.startTime && obj.endTime < this.endTime)
-			result = true;
-		
-		if (obj.startTime > this.startTime && obj.endTime == this.endTime)
-			result = true;
-		
-		if (obj.startTime > this.startTime && obj.endTime < this.endTime)
-			result = true;
-		
-		if (obj.startTime == this.startTime && obj.endTime == this.endTime && obj.nameService.compareTo("Posh")==0)
-			result = true;
-		
-		return result;
+		return (this.startTime.equals(obj.startTime) && this.endTime.isBefore(obj.endTime) ||
+				this.startTime.isAfter(obj.startTime) && this.endTime.equals(obj.endTime) ||
+				this.endTime.isBefore(obj.endTime));
 	}
-	
-	public boolean isSpecificBus(Bus obj) //Old Object is Specific
-	{
-		boolean result = false;
-		
-		if (obj.startTime == this.startTime && obj.endTime > this.endTime)
-			result = true;
-		
-		if (obj.startTime < this.startTime && obj.endTime == this.endTime)
-			result = true;
-		
-		if (obj.startTime < this.startTime && obj.endTime > this.endTime)
-			result = true;
-		
-		if ((obj.startTime == this.startTime) && (obj.endTime == this.endTime) && (this.nameService.compareTo("Posh") == 0))
-			result = true;
-		
-		return result;
-	}
+
 	
 	public boolean checkOneHour()
 	{
 		boolean result = true;
 		
-		int intermidiate = this.endTime - this.startTime;
+		int intermidiate = (this.endTime.getHour()*60+this.endTime.getMinute()) - (this.startTime.getHour()*60+this.startTime.getMinute());
 		
 		if (intermidiate < 0)
 			intermidiate += 1440;
@@ -97,8 +65,15 @@ public class Bus implements Comparable<Bus>{
 		return result;
 	}
 
-	public int compareTo(Bus obj) {
-		return this.startTime - obj.startTime;
+	public int compareTo(Bus serviceBus) {
+		
+		if (this.startTime.compareTo(serviceBus.startTime) == 0 && 
+				this.endTime.compareTo(serviceBus.endTime) == 0)
+		{
+			return 0;
+		}
+		
+		return 1;
 	}
-	
+
 }
