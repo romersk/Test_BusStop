@@ -14,7 +14,7 @@ public class Main {
 
 		String directory;
 		directory = checkDir(); //Enter Directory
-
+		
 		FilesTest taskFiles = new FilesTest(directory);
 
 		taskFiles.solveTask();

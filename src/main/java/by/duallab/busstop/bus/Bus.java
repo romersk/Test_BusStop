@@ -7,6 +7,7 @@ public class Bus{
 	private String nameService;
 	private LocalTime startTime;
 	private LocalTime endTime;
+	private int difference;
 
 	public String getNameService()
 	{
@@ -44,9 +45,27 @@ public class Bus{
 
 	public boolean SpecificObj(Bus obj) //Object is Specific
 	{
-		return (this.startTime.equals(obj.startTime) && this.endTime.isBefore(obj.endTime) ||
-				this.startTime.isAfter(obj.startTime) && this.endTime.equals(obj.endTime) ||
-				this.endTime.isBefore(obj.endTime));
+		 if (this.endTime.compareTo(obj.endTime) == 0) {
+             if (this.difference > obj.difference) {
+                 return true;
+             }
+		 }
+		 
+		 if ((this.endTime.isBefore(this.startTime) && (obj.endTime.isBefore(obj.endTime)))) {
+	            if (this.startTime.isBefore(obj.startTime) && (this.endTime.isAfter(obj.endTime))) {
+	                return true;
+	            }
+	        } else if ((this.endTime.isBefore(this.startTime) && (obj.endTime.isAfter(obj.startTime)))) {
+	            if (this.startTime.isBefore(obj.startTime) && (this.endTime.isBefore(obj.endTime))) {
+	                return true;
+	            }
+	        } else if ((this.endTime.isAfter(this.startTime) && (obj.endTime.isAfter(obj.startTime)))) {
+	            if (this.startTime.isBefore(obj.startTime) && (this.endTime.isAfter(obj.endTime))) {
+	                return true;
+	            }
+	        }
+		 
+		 return false;
 	}
 
 	
@@ -58,6 +77,8 @@ public class Bus{
 		
 		if (intermidiate < 0)
 			intermidiate += 1440;
+		
+		difference = intermidiate;
 		
 		if (intermidiate > 60)
 			result = false;

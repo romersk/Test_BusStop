@@ -110,7 +110,7 @@ public class FilesTest {
 			
 			for (int i = 0; i < list.size()-1; ++i)
 			{
-				if (list.get(i+1).SpecificObj(list.get(i)))
+				if (list.get(i).SpecificObj(list.get(i+1)))
 				{
 					list.remove(i);
 					i--;
